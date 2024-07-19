@@ -1,0 +1,50 @@
+---
+
+- name: "Pre-requisites for installing Docker"
+  apt:
+    name: curl
+    state: present
+
+- name: "Retrieve Docker installation script"
+  command: 'curl -fsSL https://get.docker.com -o get-docker.sh'
+- name: Check if Docker is already installed
+  command: which docker
+  register: docker_installed
+  ignore_errors: yes
+
+- name: "Execute Docker installation script"
+  command: "sh get-docker.sh"
+  when: docker_installed.rc != 0
+  args:
+    chdir: ./get-docker.sh
+  
+- name: "Start and enable Docker service"
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: "Add user to Docker group"
+  user:
+    name: "osboxes"
+    append: yes
+    groups:
+      - docker
+
+- name: "Install Python pip for Ubuntu"
+  apt:
+    name: python3-pip
+    state: present
+  when: ansible_distribution == "Ubuntu"
+- name: Download Docker Compose binary
+  shell: |
+    curl -L "https://github.com/docker/compose/releases/download/v2.28.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  args:
+    creates: /usr/local/bin/docker-compose
+
+- name: Apply executable permissions to the Docker Compose binary
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: '0755'
+    state: file
+
