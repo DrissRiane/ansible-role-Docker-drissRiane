@@ -1,18 +1,18 @@
 ---
 namespace: community
-name: odoo-role
+name: docker-role-riane
 version: 1.0.0
 readme: README.md
 authors:
   - Driss Riane
-description: Installation de postgres et odoo
+description: Installation de docker
 license_file: BSD
 tags:
   - v1
-repository: https://github.com/DrissRiane/ansible-Role-driss-Riane.git
-documentation: https://github.com/DrissRiane/ansible-Role-driss-Riane.git
-homepage: https://github.com/DrissRiane/ansible-Role-driss-Riane.git
-issues: https://github.com/DrissRiane/ansible-Role-driss-Riane.git
+repository: https://github.com/DrissRiane/ansible-role-Docker-drissRiane.git
+documentation: https://github.com/DrissRiane/ansible-role-Docker-drissRiane.git
+homepage: https://github.com/DrissRiane/ansible-role-Docker-drissRiane.git
+issues: https://github.com/DrissRiane/ansible-role-Docker-drissRiane.git
 build_ignore:
   - .gitignore
  
